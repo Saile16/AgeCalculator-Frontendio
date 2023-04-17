@@ -1,0 +1,9 @@
+:root {
+  --main-bg: hsl(0, 0%, 94%);
+  --card-bg: hsl(0, 0%, 100%);
+  --arrow-bg: hsl(259, 100%, 65%);
+}
+
+body {
+  background-color: var(--main-bg);
+}
