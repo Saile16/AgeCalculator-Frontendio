@@ -13,14 +13,14 @@ function App() {
   });
   const [error, setError] = useState({
     error: false,
-    mensaje: "",
+    msj: "",
   });
 
   useEffect(() => {
     if (day.length == 0 || month.length == 0 || year.length == 0) {
       setError({
         error: true,
-        mensaje: "This field is required",
+        msj: "This field is required",
       });
     } else if (
       day <= 0 ||
@@ -37,7 +37,7 @@ function App() {
     } else {
       setError({
         error: false,
-        mensaje: "",
+        msj: "",
       });
     }
   }, [day, month, year]);
@@ -81,7 +81,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="contenedor">
+      <div className="container">
         <div className="card">
           <div className="container-form">
             <div className="container-input">
@@ -94,7 +94,7 @@ function App() {
                 className="input"
                 placeholder="DD"
               />
-              {error ? <label className="error">{error.mensaje}</label> : ""}
+              {error ? <label className="error">{error.msj}</label> : ""}
             </div>
             <div className="container-input">
               <label className="label">MONTH</label>
@@ -108,7 +108,7 @@ function App() {
                 className="input"
                 placeholder="MM"
               />
-              {error ? <label className="error">{error.mensaje}</label> : ""}
+              {error ? <label className="error">{error.msj}</label> : ""}
             </div>
             <div className="container-input">
               <label className="label">YEAR</label>
@@ -120,12 +120,12 @@ function App() {
                 className="input"
                 placeholder="YYYY"
               />
-              {error ? <label className="error">{error.mensaje}</label> : ""}
+              {error ? <label className="error">{error.msj}</label> : ""}
             </div>
           </div>
 
-          <div className="contenedor-linea">
-            <div className="linea"></div>
+          <div className="container-divider">
+            <div className="divider"></div>
             <div className="img-arrow">
               <img
                 src={Arrow}
