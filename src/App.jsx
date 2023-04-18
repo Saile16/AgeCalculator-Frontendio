@@ -3,18 +3,42 @@ import Arrow from "./assets/icon-arrow.svg";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App">
       <div className="contenedor">
         <div className="card">
-          <label>DAY</label>
-          <input />
-          <label>MONTH</label>
-          <input />
-          <label>YEAR</label>
-          <input />
+          <div className="container-form">
+            <div className="container-input">
+              <label className="label">DAY</label>
+              <input
+                type="number"
+                name="day"
+                onChange={(e) => setDay(e.target.value)}
+                className="input"
+                placeholder="DD"
+              />
+            </div>
+            <div className="container-input">
+              <label className="label">MONTH</label>
+              <input
+                type="number"
+                name="month"
+                onChange={(e) => setMonth(e.target.value)}
+                className="input"
+                placeholder="MM"
+              />
+            </div>
+            <div className="container-input">
+              <label className="label">YEAR</label>
+              <input
+                type="number"
+                name="year"
+                onChange={(e) => setYear(e.target.value)}
+                className="input"
+                placeholder="YYYY"
+              />
+            </div>
+          </div>
 
           <div className="contenedor-linea">
             <div className="linea"></div>
@@ -24,15 +48,18 @@ function App() {
           </div>
 
           <div className="container-result">
-            <p>
-              <span>38</span>years
-            </p>
-            <p>
-              <span>38</span>months
-            </p>
-            <p>
-              <span>38</span>days
-            </p>
+            <div className="container-result-age">
+              <p className="number">-</p>
+              <p className="label-result">years</p>
+            </div>
+            <div className="container-result-age">
+              <p className="number">-</p>
+              <p className="label-result">months</p>
+            </div>
+            <div className="container-result-age">
+              <p className="number">-</p>
+              <p className="label-result">days</p>
+            </div>
           </div>
         </div>
       </div>

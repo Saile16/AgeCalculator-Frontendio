@@ -22,6 +22,47 @@
   border-bottom-right-radius: 140px;
 }
 
+.container-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.container-input {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.label {
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: var(--label);
+  margin-bottom: 5px;
+}
+.input {
+  width: 65px;
+  height: 30px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 5px;
+  text-align: center;
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.contenedor-linea {
+  margin-top: 55px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.linea {
+  height: 2px;
+  width: 100%;
+  background-color: var(--border);
+}
 .img-arrow {
   background-color: var(--arrow-bg);
   display: block;
@@ -31,9 +72,79 @@
   border-radius: 50%;
   padding: 7px;
   margin-top: 15px;
+  position: absolute;
+  cursor: pointer;
+}
+.img-arrow:hover {
+  background-color: black;
 }
 .img-arrow img {
   padding: 1px;
-  width: 35px;
-  height: 35px;
+  width: 48px;
+  height: 48px;
+}
+.container-result {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+
+.container-result-age {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.number {
+  font-size: 50px;
+  color: var(--arrow-bg);
+  font-weight: bold;
+  margin-right: 13px;
+  font-style: italic;
+}
+.label-result {
+  font-size: 50px;
+  font-weight: bold;
+  font-style: italic;
+}
+@media (min-width: 680px) {
+  .card {
+    width: 800px;
+    height: 550px;
+  }
+  .container-form {
+    justify-content: start;
+    gap: 35px;
+  }
+  .container-input {
+  }
+  .input {
+    width: 140px;
+    height: 58px;
+    font-size: 25px;
+  }
+  .linea {
+    height: 2px;
+    width: 100%;
+    background-color: var(--border);
+  }
+  .img-arrow {
+    right: 0;
+    width: 80px;
+  }
+  .img-arrow img {
+    padding: 1px;
+    width: 68px;
+    height: 68px;
+  }
+  .container-result {
+    margin-top: 40px;
+  }
+  .number {
+    font-size: 80px;
+  }
+  .label-result {
+    font-size: 80px;
+  }
 }
