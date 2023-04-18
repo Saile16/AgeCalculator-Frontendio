@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Arrow from "./assets/icon-arrow.svg";
 import "./App.css";
 const monthsUtil = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -11,8 +11,40 @@ function App() {
     month: "-",
     days: "-",
   });
-  console.log(typeof year);
+  const [error, setError] = useState({
+    error: false,
+    mensaje: "",
+  });
+
+  useEffect(() => {
+    if (day.length == 0 || month.length == 0 || year.length == 0) {
+      setError({
+        error: true,
+        mensaje: "This field is required",
+      });
+    } else if (
+      day <= 0 ||
+      day > 31 ||
+      month <= 0 ||
+      month > 12 ||
+      year <= 0 ||
+      year > 2023
+    ) {
+      setError({
+        error: true,
+        mensaje: "Must be a valid date",
+      });
+    } else {
+      setError({
+        error: false,
+        mensaje: "",
+      });
+    }
+  }, [day, month, year]);
   const ageCalculator = () => {
+    if (error.error) {
+      return;
+    }
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1;
@@ -55,39 +87,52 @@ function App() {
             <div className="container-input">
               <label className="label">DAY</label>
               <input
-                type="number"
+                maxLength={2}
+                type="text"
                 name="day"
                 onChange={(e) => setDay(e.target.value)}
                 className="input"
                 placeholder="DD"
               />
+              {error ? <label className="error">{error.mensaje}</label> : ""}
             </div>
             <div className="container-input">
               <label className="label">MONTH</label>
               <input
-                type="number"
+                min={1}
+                max={12}
+                maxLength={2}
+                type="text"
                 name="month"
                 onChange={(e) => setMonth(e.target.value)}
                 className="input"
                 placeholder="MM"
               />
+              {error ? <label className="error">{error.mensaje}</label> : ""}
             </div>
             <div className="container-input">
               <label className="label">YEAR</label>
               <input
-                type="number"
+                type="text"
+                maxLength={4}
                 name="year"
                 onChange={(e) => setYear(e.target.value)}
                 className="input"
                 placeholder="YYYY"
               />
+              {error ? <label className="error">{error.mensaje}</label> : ""}
             </div>
           </div>
 
           <div className="contenedor-linea">
             <div className="linea"></div>
             <div className="img-arrow">
-              <img src={Arrow} alt="arrow" onClick={() => ageCalculator()} />
+              <img
+                src={Arrow}
+                alt="arrow"
+                onClick={() => ageCalculator()}
+                disabled={true}
+              />
             </div>
           </div>
 
