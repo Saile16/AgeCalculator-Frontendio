@@ -7,7 +7,7 @@
   justify-content: center;
 }
 
-.contenedor {
+.container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,7 +53,7 @@
 .input:focus {
   border: 2px solid var(--arrow-bg);
 }
-.contenedor-linea {
+.container-divider {
   margin-top: 55px;
   display: flex;
   flex-direction: column;
@@ -61,7 +61,7 @@
   justify-content: center;
   position: relative;
 }
-.linea {
+.divider {
   height: 2px;
   width: 100%;
   background-color: var(--border);
@@ -131,7 +131,7 @@
     height: 58px;
     font-size: 25px;
   }
-  .linea {
+  .divider {
     height: 2px;
     width: 100%;
     background-color: var(--border);
