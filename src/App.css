@@ -69,7 +69,6 @@
 .img-arrow {
   background-color: var(--arrow-bg);
   display: block;
-  text-align: center;
   margin: 0 auto;
   width: 60px;
   border-radius: 50%;
@@ -77,6 +76,9 @@
   margin-top: 15px;
   position: absolute;
   cursor: pointer;
+  outline: none;
+  border: none;
+  text-align: center;
 }
 .img-arrow:hover {
   background-color: black;

@@ -5,47 +5,83 @@ import FormInput from "./FormInput";
 import AgeResults from "./AgeResults";
 const monthsUtil = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 const Card = () => {
-  const [day, setDay] = useState("");
-  const [month, setMonth] = useState("");
-  const [year, setYear] = useState("");
+  // const [day, setDay] = useState("");
+  // const [month, setMonth] = useState("");
+  // const [year, setYear] = useState("");
+  const [data, setData] = useState({ day: 0, month: 0, year: 0 });
+  const { day, month, year } = data;
   const [result, setResult] = useState({
     year: "-",
     month: "-",
     days: "-",
   });
-  const [error, setError] = useState({
-    error: false,
-    msj: "",
+  const [errors, setErrors] = useState({
+    day: "",
+    month: "",
+    year: "",
   });
 
-  useEffect(() => {
-    if (day.length == 0 || month.length == 0 || year.length == 0) {
-      setError({
-        error: true,
-        msj: "This field is required",
-      });
-    } else if (
-      day <= 0 ||
-      day > 31 ||
-      month <= 0 ||
-      month > 12 ||
-      year <= 0 ||
-      year > 2023
-    ) {
-      setError({
-        error: true,
-        mensaje: "Must be a valid date",
-      });
-    } else {
-      setError({
-        error: false,
-        msj: "",
-      });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+
+    if (name == "day") {
+      if (value > 32 || value < 0) {
+        setErrors((prevData) => ({
+          ...prevData,
+          [name]: " Must be a valid day",
+        }));
+      } else {
+        setErrors((prevData) => ({
+          ...prevData,
+          [name]: "",
+        }));
+      }
     }
-  }, [day, month, year]);
+    if (name == "month") {
+      if (value > 12 || value < 0) {
+        setErrors((prevData) => ({
+          ...prevData,
+          [name]: " Must be a valid month",
+        }));
+      } else {
+        setErrors((prevData) => ({
+          ...prevData,
+          [name]: "",
+        }));
+      }
+    }
+
+    if (name == "year") {
+      if (value > 2023 || value < 0) {
+        setErrors((prevData) => ({
+          ...prevData,
+          [name]: "Must be in the past",
+        }));
+      } else {
+        setErrors((prevData) => ({
+          ...prevData,
+          [name]: "",
+        }));
+      }
+    }
+  };
+
+  // const [error, setError] = useState({
+  //   error: false,
+  //   msj: "",
+  // });
+
   const ageCalculator = () => {
-    if (error.error) {
-      return;
+    if (day == 0 || month == 0 || year == 0) {
+      setErrors({
+        day: "This field is required",
+        month: "This field is required",
+        year: "This field is required",
+      });
     }
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
@@ -90,9 +126,10 @@ const Card = () => {
           type="text"
           name="day"
           className="input"
-          placeholder="DD"
-          onChange={(e) => setDay(e.target.value)}
-          error={error}
+          // placeholder="DD"
+          value={day}
+          onChange={handleChange}
+          errors={errors.day}
         />
         <FormInput
           label="MONTH"
@@ -100,9 +137,10 @@ const Card = () => {
           type="text"
           name="month"
           className="input"
-          placeholder="MM"
-          onChange={(e) => setMonth(e.target.value)}
-          error={error}
+          // placeholder="MM"
+          value={month}
+          onChange={handleChange}
+          errors={errors.month}
         />
         <FormInput
           label="YEAR"
@@ -110,22 +148,18 @@ const Card = () => {
           type="text"
           name="year"
           className="input"
-          placeholder="YYYY"
-          onChange={(e) => setYear(e.target.value)}
-          error={error}
+          // placeholder="YYYY"
+          value={year}
+          onChange={handleChange}
+          errors={errors.year}
         />
       </div>
 
       <div className="container-divider">
         <div className="divider"></div>
-        <div className="img-arrow">
-          <img
-            src={Arrow}
-            alt="arrow"
-            onClick={() => ageCalculator()}
-            disabled={true}
-          />
-        </div>
+        <button className="img-arrow" onClick={() => ageCalculator()}>
+          <img src={Arrow} alt="arrow" />
+        </button>
       </div>
 
       <AgeResults result={result} />

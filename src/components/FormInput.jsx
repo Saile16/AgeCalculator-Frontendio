@@ -1,11 +1,13 @@
 import React from "react";
 
-const FormInput = ({ label, error, ...otherProps }) => {
+const FormInput = ({ label, errors, ...otherProps }) => {
+  // console.log(errors);
+
   return (
     <div className="container-input">
       <label className="label">{label}</label>
       <input {...otherProps} />
-      {error ? <label className="error">{error.msj}</label> : ""}
+      {errors ? <label className="error">{errors}</label> : ""}
     </div>
   );
 };
