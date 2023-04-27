@@ -1,5 +1,3 @@
-import React from "react";
-
 const AgeResults = ({ result }) => {
   return (
     <div className="container-result">

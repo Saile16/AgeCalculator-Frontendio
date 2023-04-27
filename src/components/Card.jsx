@@ -1,13 +1,12 @@
 import Arrow from "../assets/icon-arrow.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import FormInput from "./FormInput";
 import AgeResults from "./AgeResults";
-const monthsUtil = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+import { ageCalculator } from "../utils/ageCalculator";
+import { getMaxDaysInMonth } from "../utils/getMaxDaysInMonth";
+
 const Card = () => {
-  // const [day, setDay] = useState("");
-  // const [month, setMonth] = useState("");
-  // const [year, setYear] = useState("");
   const [data, setData] = useState({ day: 0, month: 0, year: 0 });
   const { day, month, year } = data;
   const [result, setResult] = useState({
@@ -15,21 +14,20 @@ const Card = () => {
     month: "-",
     days: "-",
   });
-  const [errors, setErrors] = useState({
-    day: "",
-    month: "",
-    year: "",
-  });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
+    //MaxDays in the month
+    const maxDays = getMaxDaysInMonth(month, year);
     const { name, value } = e.target;
+
     setData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
 
     if (name == "day") {
-      if (value > 32 || value < 0) {
+      if (value > maxDays || value < 0) {
         setErrors((prevData) => ({
           ...prevData,
           [name]: " Must be a valid day",
@@ -70,51 +68,25 @@ const Card = () => {
     }
   };
 
-  // const [error, setError] = useState({
-  //   error: false,
-  //   msj: "",
-  // });
-
-  const ageCalculator = () => {
+  const handleAgeCalculator = () => {
     if (day == 0 || month == 0 || year == 0) {
       setErrors({
         day: "This field is required",
         month: "This field is required",
         year: "This field is required",
       });
-    }
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1;
-    const currentDay = currentDate.getDate();
-
-    let resultAge = currentYear - Number(year);
-    let resultMonth;
-    let resultDay;
-    if (currentMonth >= month) {
-      resultMonth = currentMonth - Number(month);
     } else {
-      resultAge--;
-      resultMonth = 12 + currentMonth - Number(month);
+      const { resultAge, resultMonth, resultDay } = ageCalculator(
+        day,
+        month,
+        year
+      );
+      setResult({
+        year: resultAge,
+        month: resultMonth,
+        days: resultDay,
+      });
     }
-
-    if (currentDay >= day) {
-      resultDay = currentDay - Number(day);
-    } else {
-      resultMonth--;
-      let days = monthsUtil[currentMonth - 2];
-      resultDay = days + currentDay - Number(day);
-      if (resultMonth < 0) {
-        resultMonth = 11;
-        resultDay--;
-      }
-    }
-
-    setResult({
-      year: resultAge,
-      month: resultMonth,
-      days: resultDay,
-    });
   };
 
   return (
@@ -157,7 +129,7 @@ const Card = () => {
 
       <div className="container-divider">
         <div className="divider"></div>
-        <button className="img-arrow" onClick={() => ageCalculator()}>
+        <button className="img-arrow" onClick={() => handleAgeCalculator()}>
           <img src={Arrow} alt="arrow" />
         </button>
       </div>
